@@ -1,0 +1,14 @@
+#!/usr/bin/expect -f
+
+set timeout 100
+spawn telnet [lrange $argv 0 0 ]
+match_max 100000
+expect "Password:"
+send -- "[lrange $argv 1 1]\r"
+expect ">"
+send "screen-length 0 tem\n"
+expect ">"
+send "dis mac-add\n"
+expect ">"
+send -- "quit\r"
+expect eof
