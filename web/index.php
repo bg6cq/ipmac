@@ -48,7 +48,7 @@ if($str!="") {
 		echo "<tr><td>";
 		echo "<a href=index.php?str=$ip>$ip</a>"; echo "</td><td>";
 		echo "<a href=index.php?str=$mac>$mac</a>"; echo "</td><td>";
-		$firstsee; echo "</td><td>";
+		echo $firstsee; echo "</td><td>";
 		echo $lastsee; echo "</td>";
 		echo "<td><a href=mac.php?mac=$mac>查端口</a></tr>";
 	}
