@@ -53,6 +53,25 @@ if($debug) {
 	echo "jhjip = $jhjip\n";
 }
 
+$uplinkports = array ();
+$q = "select Port from UplinkPort where JHJIP = ?";
+if($debug) echo $q."\n";
+$stmt=$mysqli->prepare($q);
+$stmt->bind_param("s",$jhjip);
+$stmt->execute();
+$stmt->bind_result($port);
+$stmt->store_result();
+while($stmt->fetch()) {
+	echo $port."\n";
+	$uplinkports[] =  $port;
+}
+$stmt->close();
+if($debug) {
+	echo "uplinkports: ";
+	var_dump($uplinkports);
+	echo "\n";
+}
+
 $count = 0;
 while($f = fgets(STDIN)){
 	$delimiter = array(" ","\t","\r","\n");
@@ -62,7 +81,12 @@ while($f = fgets(STDIN)){
 	$vlan = $r[1];
 	$port = $r[2];
 
-	if($debug) echo $mac."/".$vlan."/".$port."\n";
+	if($debug) echo $mac."/".$vlan."/".$port;
+	if(in_array($port, $uplinkports)) {
+		if($debug) echo ", ".$port." is uplinkport, skip\n";
+		continue;
+	} else 
+		if($debug) echo "\n";
 	update_mac_port($mac, $jhjip, $port, $vlan);
 	$count = $count + 1;
 }

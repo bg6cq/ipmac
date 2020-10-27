@@ -55,4 +55,10 @@ ln -s /usr/src/ipmac/web /var/www/html/ipmac
 
 执行 screen ，然后执行 sh run 即可。
 
+### 五、关键表
+
+UplinkPort 表
+```
+上联口信息，表中的接口MAC地址不记录
+```
 
